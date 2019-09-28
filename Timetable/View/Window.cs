@@ -12,6 +12,8 @@ namespace Timetable.View
 {
     public partial class Window : Form
     {
+        private static readonly DayOfWeek[] DISPLAYED_DAYS = new DayOfWeek[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday };
+
         public Window(Model.Model model)
         {
             InitializeComponent();
@@ -20,15 +22,15 @@ namespace Timetable.View
             dataGridView1.RowTemplate = new DataGridViewNumberedRow();
 
             var lst = new List<TimetableRow>();
-            foreach(var item in _model.GetTimetable().Days)
+
+            int tableHeight = _model.DayLength(_model.LongestDay());
+
+            for (int i = 0; i < tableHeight; ++i)
             {
-                for(int i = 0; i < item.Value.Count; ++i)
+                lst.Add(new TimetableRow());
+                foreach(var day in DISPLAYED_DAYS)
                 {
-                    while (lst.Count <= i)
-                    {
-                        lst.Add(new TimetableRow());
-                    }
-                    lst[i][item.Key] = item.Value[i];
+                    lst[i][day] = _model[day, i];
                 }
             }
 

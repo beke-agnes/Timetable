@@ -14,7 +14,7 @@ namespace Timetable.Persistence
         {
             Days = new Dictionary<DayOfWeek, IList<string>>()
             {
-                {DayOfWeek.Monday, new List<string>() { null } },
+                {DayOfWeek.Monday, new List<string>()},
                 {DayOfWeek.Tuesday, new List<string>()},
                 {DayOfWeek.Wednesday, new List<string>()},
                 {DayOfWeek.Thursday, new List<string>()},
